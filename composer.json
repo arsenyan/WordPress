@@ -1,0 +1,23 @@
+"repositories": [
+    {
+        "type": "composer",
+        "url": "https://wpackagist.org",
+        "only": [
+            "wpackagist-plugin/*",
+            "wpackagist-theme/*"
+        ]
+    },
+    {
+        "type": "package",
+        "package": {
+            "name": "wordpress/wordpress",
+            "type": "wordpress-core",
+            "version": "5.7.1",
+            "source": {
+                "url": "https://github.com/WordPress/WordPress.git",
+                "type": "git",
+                "reference": "5.7.1"
+            }
+        }
+    }
+],
