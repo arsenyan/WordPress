@@ -7,6 +7,9 @@ zerops:
 
       # Устанавливаем зависимости WordPress
       buildCommands:
+        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        - php composer-setup.php
+        - php -r "unlink('composer-setup.php');"
         - composer install --optimize-autoloader --no-dev
 
       # Копируем все файлы приложения
