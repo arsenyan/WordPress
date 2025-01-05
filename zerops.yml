@@ -9,6 +9,7 @@ zerops:
       buildCommands:
         - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
         - php composer-setup.php
+        - php composer.phar
         - php -r "unlink('composer-setup.php');"
         - composer install --optimize-autoloader --no-dev
 
