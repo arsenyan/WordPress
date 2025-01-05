@@ -1,0 +1,39 @@
+zerops:
+  - setup: phpnginx0
+    # ==== how to build your application ====
+    build:
+      # Устанавливаем базовый образ PHP 8.4
+      base: php@8.4
+
+      # Устанавливаем зависимости WordPress
+      buildCommands:
+        - composer install --optimize-autoloader --no-dev
+
+      # Копируем все файлы приложения
+      deployFiles: ./
+
+      # Кэшируем зависимости Composer
+      cache:
+        - vendor
+        - composer.lock
+
+    # ==== how to run your application ====
+    run:
+      # Используем PHP + Nginx как базу для выполнения
+      base: php-nginx@8.4
+
+      # Настраиваем пользовательский Nginx конфиг
+      siteConfigPath: site.conf
+
+  - setup: mariadb
+    # ==== MariaDB Configuration ====
+    run:
+      # Устанавливаем базу данных MariaDB
+      base: mariadb@10.11
+
+      # Добавляем начальную настройку базы данных
+      prepareCommands:
+        - mysql -e "CREATE DATABASE IF NOT EXISTS wordpress;"
+        - mysql -e "CREATE USER IF NOT EXISTS 'wordpress_user'@'%' IDENTIFIED BY 'secure_password';"
+        - mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress_user'@'%';"
+        - mysql -e "FLUSH PRIVILEGES;"
